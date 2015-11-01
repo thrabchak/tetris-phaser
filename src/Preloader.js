@@ -1,23 +1,22 @@
 /** @constructor */
-GameTitle.Preloader = function( game )
+Tetris.Preloader = function()
 {
-  this.preloader = null;
-
   this.soundList = [];
   this.numberOfDecodedSounds = 0;
 };
 
-GameTitle.Preloader.stateKey = "Preloader";
+Tetris.Preloader.stateKey = "Preloader";
 
-GameTitle.Preloader.prototype.init = function()
+Tetris.Preloader.prototype.init = function()
 {
   
 };
 
-GameTitle.Preloader.prototype.preload = function()
+Tetris.Preloader.prototype.preload = function()
 {
   this.stage.backgroundColor = 0x111111;
 
+  // Setup preloader 'loading' bar
   var preloaderWidth = ( this.game.width * 0.67 / 2.0 ) | 0;
   var preloaderHeight = 32;
   var bmd = this.game.add.bitmapData( preloaderWidth, preloaderHeight );
@@ -30,17 +29,19 @@ GameTitle.Preloader.prototype.preload = function()
                                  this.world.height - this.preloader.height * 2 );
   this.load.setPreloadSprite( this.preloader );
 
-  this.load.audio( "bell2", "assets/sounds/bell2.wav" );
+  // Load audio
+  //this.load.audio( "bell2", "assets/sounds/bell2.wav" );
 };
 
-GameTitle.Preloader.prototype.create = function()
+Tetris.Preloader.prototype.create = function()
 {
   this.stage.backgroundColor = 0x222222;
 
   this.numberOfDecodedSounds = 0;
 
-  var bell2 = this.game.add.audio( "bell2" );
-  this.soundList.push( bell2 );
+  // Add the loaded audio to the game
+  //var bell2 = this.game.add.audio( "bell2" );
+  //this.soundList.push( bell2 );
 
   // Apply callback to decoding sounds.
   for( var i = 0; i < this.soundList.length; i++ )
@@ -51,36 +52,20 @@ GameTitle.Preloader.prototype.create = function()
   this.sound.setDecodedCallback( this.soundList, this.allSoundsDecoded, this );
 };
 
-GameTitle.Preloader.prototype.soundDecoded = function( audio )
+Tetris.Preloader.prototype.soundDecoded = function()
 {
   // Start scaling the preloader sprite towards 200% for audio decoding.
   this.numberOfDecodedSounds++;
   this.preloader.scale.set( 1.0 + ( this.numberOfDecodedSounds / this.soundList.length ), 1.0 );
 };
 
-GameTitle.Preloader.prototype.allSoundsDecoded = function()
+Tetris.Preloader.prototype.allSoundsDecoded = function()
 {
   this.start();
 };
 
-GameTitle.Preloader.prototype.start = function()
+Tetris.Preloader.prototype.start = function()
 {
-  // First see if the "state" URL parameter was specified.
-  var stateKey = this.game.net.getQueryString( "state" );
-  if( typeof stateKey === "string" && stateKey !== "" )
-  {
-    if( this.state.checkState( stateKey ) )
-    {
-      // Just straight to this state.
-      this.state.start( stateKey );
-      return;
-    }
-    else
-    {
-      console.warn( stateKey + " is not a valid state key." );
-    }
-  }
-
   // Proceed to main menu, as usual.
-  this.state.start( GameTitle.MainMenu.stateKey );
+  this.state.start( Tetris.MainMenu.stateKey );
 };

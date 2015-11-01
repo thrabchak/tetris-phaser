@@ -1,0 +1,29 @@
+{
+  "name": "Tetris",
+  "description": "Phaser based version of classic Tetris.",
+  "main": "",
+  "authors": [
+    "Tom Hrabchak"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "phaser",
+    "tetris",
+    "game",
+    "html5",
+    "fun"
+  ],
+  "homepage": "https://github.com/thrabchak/tetris-phaser",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.4.4"
+  }
+}

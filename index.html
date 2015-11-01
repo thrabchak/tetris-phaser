@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
-    <title>Can't Stop The Drop</title>
+    <title>Phaser Tetris</title>
     <meta charset="UTF-8" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
 
     <link rel="icon" sizes="196x196" href="assets/graphics/icon.png">
-    <link href="style.css" rel="stylesheet" type="text/css" media="screen"/>
 
     <!--Library-->
-    <script type="text/javascript" src="node_modules/phaser/phaser.js"></script>
+    <script type="text/javascript" src="./bower_components/phaser/build/phaser.min.js" />
 
     <!--Main-->
-    <script type="text/javascript" src="src/JsUtils.js"></script>
-    <script type="text/javascript" src="src/Layer3d.js"></script>
-    <script type="text/javascript" src="src/GameTitle.js"></script>
-    <script type="text/javascript" src="src/Boot.js"></script>
-    <script type="text/javascript" src="src/Preloader.js"></script>
-    <script type="text/javascript" src="src/MainMenu.js"></script>
-    <script type="text/javascript" src="src/Game.js"></script>
-    <script type="text/javascript" src="src/GameLayer3d.js"></script>
-    <script type="text/javascript" src="src/About.js"></script>
+    <script type="text/javascript" src="src/Tetris.js" />
+    <script type="text/javascript" src="src/Boot.js" />
+    <script type="text/javascript" src="src/Preloader.js" />
+    <script type="text/javascript" src="src/MainMenu.js" />
+
+    <script type="text/javascript" src="src/Game.js" />
   </head>
 
   <body>
     <script type="text/javascript">
       window.onload = function()
       {
-        GameTitle.run();
+        Tetris.run();
       }
     </script>
   </body>
