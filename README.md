@@ -8,7 +8,7 @@ A phaser based version of tetris.
 
 Currently the game is not hosted on a website, you will need to get the source code in order to run the game. The easiest way to do so is cloning the project from GitHub using [git](https://help.github.com/articles/set-up-git/).
 
-This project uses npm and bower to manage project dependencies. If you do not have nodejs installed, you can download it [here](https://nodejs.org/en/download/). 
+This project uses npm to manage project dependencies. If you do not have nodejs installed, you can download it [here](https://nodejs.org/en/download/). 
 
 Because this is a web based game, the source code will need to be run on a server in order to play the game. A simple way to run a local server is by using python's [SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html). To do this, you should have python 2.7 installed. You can download python 2.7 [here](https://www.python.org/downloads/).
 
@@ -22,7 +22,6 @@ First, clone from GitHub:
 Next, install the project dependencies:
 
     npm install
-    bower install
 
 Finally start your server:
 
