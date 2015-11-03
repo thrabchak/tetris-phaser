@@ -1,0 +1,15 @@
+{
+  "fonts.fontSize": "12px",
+  "fonts.fontFamily": "'SourceCodePro-Medium', ＭＳ ゴシック, 'MS Gothic', monospace",
+
+  // Empty Space
+  "useTabChar": false,
+  "spaceUnits": 2,
+
+  // JSHint
+  "linting.collapsed": false,
+  "linting.prefer": [
+      "JSHint"
+  ],
+  "linting.usePreferredOnly": true
+}
