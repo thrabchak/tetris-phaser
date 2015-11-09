@@ -26,7 +26,13 @@ var Tetris =
   GREEN:  0,
   RED:    1,
   BLUE:   2,
-  YELLOW: 3
+  YELLOW: 3,
+  
+  // Static Data for the position of Blocks within a Shape.
+  // blockPositions[shapeType][orientation][blockNumber].x = (int) board positions away from Shape.centerX
+  // in the x direction.
+  blockPositionsJSON: null,
+  blockPositions: null
 };
 
 Tetris.run = function()
