@@ -1,5 +1,5 @@
 /** @constructor */
-Tetris =
+var Tetris =
 {
   title: "Tetris",
   author: "Tom Hrabchak",
@@ -14,11 +14,19 @@ Tetris =
   buttonStyle: { font: "32px Arial", fill: "#ffffff" },
   buttonActiveStyle: { font: "32px Arial", fill: "#ffffff", fontStyle: "italic" },
   
-  GREEN: 0,
-  RED: 1,
-  BLUE: 2,
-  YELLOW: 3
+  BOARD_WIDTH: 10,
+  BOARD_HEIGHT: 40,
   
+  // Movement Directions
+  DOWN: 0,
+  LEFT: 1,
+  RIGHT: 2,
+    
+  // Block colors
+  GREEN:  0,
+  RED:    1,
+  BLUE:   2,
+  YELLOW: 3
 };
 
 Tetris.run = function()
