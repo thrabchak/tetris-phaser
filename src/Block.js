@@ -15,6 +15,8 @@ Tetris.Block.prototype = {
     this.x = newX;
     this.y = newY;
     this.color = newColor;
+    
+    this.game.add.sprite();
   },
   
   clean: function() {

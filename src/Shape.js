@@ -13,7 +13,8 @@ Tetris.Shape = function () {
 Tetris.Shape.prototype = {
 
   NUM_BLOCKS_IN_SHAPE: 4,
-  
+  NUM_SHAPE_TYPES: 7,
+
   // Shape type
   I: 0,
   J: 1,
@@ -29,17 +30,11 @@ Tetris.Shape.prototype = {
     this.type = this.O;
     this.orientation = 0;
     this.color = Tetris.GREEN;
-
-    // Center Block Position
-    this.centerX = 4;
-    this.centerY = 4;
-
-    this.initBlocks();
-    this.setupBlocks();
   },
   
   initBlocks: function () {
     
+    //TODO: Remove if left unused
     var i;
     for(i = 0; i < this.NUM_BLOCKS_IN_SHAPE; i++) {
       this.blocks[i] = new Tetris.Block();
@@ -47,20 +42,39 @@ Tetris.Shape.prototype = {
   },
   
   setupBlocks: function () {
-    
+        
     var i, newX, newY;
 
     for(i = 0; i < this.blocks.length; i++) {
-      newX = Tetris.blockPositions[this.type][this.orientation][i].x;
-      newY = Tetris.blockPositions[this.type][this.orientation][i].y;
+      newX = this.centerX + Tetris.blockPositions[this.type][this.orientation][i].x;
+      newY = this.centerY + Tetris.blockPositions[this.type][this.orientation][i].y;
       this.blocks[i].makeBlock(newX, newY, this.color);
     }
+  },
+  
+  preview: function () {
+    
+    //TODO
+  },
+  
+  clearPreview: function () {
+    
+    //TODO
   },
   
   activate: function () {
     
     //TODO
     // move to drop location
+    this.centerX = Tetris.blockPositionsJSON.startingPosition.x;
+    this.centerY = Tetris.blockPositionsJSON.startingPosition.y;
+    
+    this.setupBlocks();
+  },
+  
+  clearActive: function () {
+    
+    //TODO
   },
   
   isOnBoard: function (x, y) {

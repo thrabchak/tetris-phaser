@@ -34,6 +34,7 @@ Tetris.Preloader.prototype = {
 
     // Load images
     this.load.image('background', 'background.png');
+    this.load.image('banner', 'banner.png');
     this.load.spritesheet('block', 'blocks.png');
     
     // Load blockPositions.json and put into Tetris.blockPositions
@@ -42,6 +43,8 @@ Tetris.Preloader.prototype = {
   
   create: function () {
     this.stage.backgroundColor = 0x222222;
+    
+    //
 
     this.numberOfDecodedSounds = 0;
 

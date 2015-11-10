@@ -23,6 +23,7 @@ var Tetris =
   RIGHT: 2,
     
   // Block colors
+  NUM_COLORS: 4,
   GREEN:  0,
   RED:    1,
   BLUE:   2,
@@ -32,7 +33,9 @@ var Tetris =
   // blockPositions[shapeType][orientation][blockNumber].x = (int) board positions away from Shape.centerX
   // in the x direction.
   blockPositionsJSON: null,
-  blockPositions: null
+  blockPositions: null,  
+  
+  unusedBlocks: []
 };
 
 Tetris.run = function()

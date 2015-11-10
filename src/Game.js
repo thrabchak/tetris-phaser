@@ -1,8 +1,8 @@
 Tetris.Game = function (game) {
   
   // Set turn length and counter
-  this.turnCounter = 0;
   this.turnLength = 60;
+  this.turnCounter = 0;
   
   this.nextShape = null;
   this.activeShape = null;
@@ -20,19 +20,28 @@ Tetris.Game.prototype = {
     
   create: function () {
     
+    var i, j;
+    
     // Create background
     this.stage.backgroundColor = 0x171642; 
     this.add.sprite(0,0,'background');
+    this.add.sprite(0,0,'banner');
     
     // Create an empty board filled with nulls
     this.board = new Array(this.BOARD_HEIGHT);
-    for (var i = 0; i < this.board.length; i++) {
+    for(i = 0; i < this.board.length; i++) 
+    {
       this.board[i] = new Array(this.BOARD_WIDTH);
-      for (var j = 0; j < this.board[i].length; j++) {
+      for (j = 0; j < this.board[i].length; j++) {
         this.board[i][j] = null;
       }
     }
     
+    // Create groups of unused block sprites
+    for(i = 0; i < Tetris.NUM_COLORS; i++) {
+      Tetris.unusedBlocks[i] = this.add.group();
+    }
+        
     // Retrieve blockPositions
     Tetris.blockPositionsJSON = this.game.cache.getJSON('blockPositions');
     Tetris.blockPositions = Tetris.blockPositionsJSON.blockPositions;
@@ -44,6 +53,7 @@ Tetris.Game.prototype = {
     // Create Shapes
     this.nextShape = new Tetris.Shape();
     this.nextShape.randomizeShape();
+    this.nextShape.preview();
     
     this.activeShape = new Tetris.Shape();
     this.activeShape.randomizeShape();
@@ -59,17 +69,18 @@ Tetris.Game.prototype = {
         this.activeShape.moveShape(Tetris.DOWN);
         
       // Otherwise the shape stops
-      } else {
-        // Clean up the active shape, we won't use this one anymore
-        this.activeShape.clean();
-        
+      } else {      
         // Handle horizontal line clearing
         this.clearHorizontalLines();
         
         // Make the next shape active and create a new next shape
+        this.activeShape.clearActive();
         this.activeShape = this.nextShape();
         this.activeShape.activate();
+
+        this.nextShape.clearPreview();
         this.nextShape.randomizeShape();
+        this.nextShape.preview();
       }
       
       // reset turn counter
