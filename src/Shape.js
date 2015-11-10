@@ -29,7 +29,7 @@ Tetris.Shape.prototype = {
     //TODO: Randomly generate type, orientation, and color
     this.type = this.O;
     this.orientation = 0;
-    this.color = Tetris.RED;
+    this.color = Math.floor(Math.random() * 4);
     
     this.initBlocks();
   },
@@ -68,8 +68,6 @@ Tetris.Shape.prototype = {
   
   clearActive: function () {
     
-    var i;
-    
     this.type = null;
     this.orientation = null;
     this.color = null;
@@ -77,8 +75,7 @@ Tetris.Shape.prototype = {
     this.centerX = null;
     this.centerY = null;
 
-    // Create Blocks
-    this.blocks = [];
+    this.blocks = null;
   },
   
   placeShapeInBoard: function () {
@@ -92,6 +89,7 @@ Tetris.Shape.prototype = {
   },
   
   isOnBoard: function (x, y) {
+    
     if(x >= 0 && y >= 0 && 
        x < Tetris.BOARD_WIDTH && y < Tetris.BOARD_HEIGHT) {
       return true;
