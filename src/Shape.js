@@ -29,26 +29,16 @@ Tetris.Shape.prototype = {
     //TODO: Randomly generate type, orientation, and color
     this.type = this.O;
     this.orientation = 0;
-    this.color = Tetris.GREEN;
+    this.color = Tetris.RED;
+    
+    this.initBlocks();
   },
   
   initBlocks: function () {
     
-    //TODO: Remove if left unused
     var i;
     for(i = 0; i < this.NUM_BLOCKS_IN_SHAPE; i++) {
       this.blocks[i] = new Tetris.Block();
-    }
-  },
-  
-  setupBlocks: function () {
-        
-    var i, newX, newY;
-
-    for(i = 0; i < this.blocks.length; i++) {
-      newX = this.centerX + Tetris.blockPositions[this.type][this.orientation][i].x;
-      newY = this.centerY + Tetris.blockPositions[this.type][this.orientation][i].y;
-      this.blocks[i].makeBlock(newX, newY, this.color);
     }
   },
   
@@ -64,22 +54,46 @@ Tetris.Shape.prototype = {
   
   activate: function () {
     
-    //TODO
-    // move to drop location
     this.centerX = Tetris.blockPositionsJSON.startingPosition.x;
     this.centerY = Tetris.blockPositionsJSON.startingPosition.y;
     
-    this.setupBlocks();
+    var i, newX, newY;
+
+    for(i = 0; i < this.blocks.length; i++) {
+      newX = this.centerX + Tetris.blockPositions[this.type][this.orientation][i].x;
+      newY = this.centerY + Tetris.blockPositions[this.type][this.orientation][i].y;
+      this.blocks[i].makeBlock(newX, newY, this.color);
+    }
   },
   
   clearActive: function () {
     
-    //TODO
+    var i;
+    
+    this.type = null;
+    this.orientation = null;
+    this.color = null;
+
+    this.centerX = null;
+    this.centerY = null;
+
+    // Create Blocks
+    this.blocks = [];
+  },
+  
+  placeShapeInBoard: function () {
+    
+    var i, block;
+    
+    for(i = 0; i < this.blocks.length; i++) {
+      block = this.blocks[i];
+      Tetris.board[block.y][block.x] = this.block;
+    }
   },
   
   isOnBoard: function (x, y) {
-    if(this.x >= 0 && this.y >= 0 && 
-       this.x < Tetris.BOARD_WIDTH && this.y < Tetris.BOARD_HEIGHT) {
+    if(x >= 0 && y >= 0 && 
+       x < Tetris.BOARD_WIDTH && y < Tetris.BOARD_HEIGHT) {
       return true;
     }
     return false;
@@ -87,20 +101,10 @@ Tetris.Shape.prototype = {
   
   isOccupied: function (x, y) {
 
-    if(this.game.board[y][x] === null) {
+    if(Tetris.board[y][x] === null) {
       return false;
     }
     return true;
-  },
-  
-  isOccupiedBySibling: function (x, y) {
-    
-    for(var i = 0; i < this.blocks.length; i++) {
-      if(this.blocks[i].x === x && this.blocks[i].y === y) {
-        return true;
-      }
-    }
-    return false;
   },
   
   canMoveShape: function (direction) {
@@ -111,7 +115,7 @@ Tetris.Shape.prototype = {
       switch(direction) {
         case Tetris.DOWN:
           newX = this.blocks[i].x;
-          newY = this.blocks[i].y - 1;
+          newY = this.blocks[i].y + 1;
           break;
         case Tetris.LEFT:
           newX = this.blocks[i].x - 1;
@@ -122,8 +126,7 @@ Tetris.Shape.prototype = {
           newY = this.blocks[i].y;
           break;
       }
-      if (this.isOnBoard(newX, newY) && this.isOccupied(newY, newX) && 
-          !this.isOccupiedBySibling(newX, newY)) {
+      if (!this.isOnBoard(newX, newY) || this.isOccupied(newX, newY)) {
         return false;
       }
     }
@@ -142,7 +145,7 @@ Tetris.Shape.prototype = {
       switch(direction) {
         case Tetris.DOWN:
           newX = this.blocks[i].x;
-          newY = this.blocks[i].y - 1;
+          newY = this.blocks[i].y + 1;
           break;
         case Tetris.LEFT:
           newX = this.blocks[i].x - 1;
@@ -166,8 +169,7 @@ Tetris.Shape.prototype = {
       newX = this.centerX + Tetris.blockPositions[this.type][newOrientation][i].x;
       newY = this.centerY + Tetris.blockPositions[this.type][newOrientation][i].y;      
       
-      if (this.isOnBoard(newX, newY) && this.isOccupied(newY, newX) && 
-          !this.isOccupiedBySibling(newX, newY)) {
+      if (!this.isOnBoard(newX, newY) || this.isOccupied(newX, newY)) {
         return false;
       }
     }

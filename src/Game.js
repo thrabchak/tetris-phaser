@@ -6,12 +6,6 @@ Tetris.Game = function (game) {
   
   this.nextShape = null;
   this.activeShape = null;
-  
-  // Declare the board.
-  // board is a 2d array containing Blocks. It will be oriented with
-  // blocks[0][0] in the top left and blocks[BOARD_HEIGHT-1][BOARD_WIDTH-1]
-  // in the bottom right corner.
-  this.board = null;
 };
 
 Tetris.Game.stateKey = "Game";
@@ -28,12 +22,12 @@ Tetris.Game.prototype = {
     this.add.sprite(0,0,'banner');
     
     // Create an empty board filled with nulls
-    this.board = new Array(this.BOARD_HEIGHT);
-    for(i = 0; i < this.board.length; i++) 
+    Tetris.board = new Array(Tetris.BOARD_HEIGHT);
+    for(i = 0; i < Tetris.BOARD_HEIGHT; i++) 
     {
-      this.board[i] = new Array(this.BOARD_WIDTH);
-      for (j = 0; j < this.board[i].length; j++) {
-        this.board[i][j] = null;
+      Tetris.board[i] = new Array(this.BOARD_WIDTH);
+      for (j = 0; j < Tetris.BOARD_WIDTH; j++) {
+        Tetris.board[i][j] = null;
       }
     }
     
@@ -47,7 +41,7 @@ Tetris.Game.prototype = {
     Tetris.blockPositions = Tetris.blockPositionsJSON.blockPositions;
     
     // Set turn length and counter
-    this.turnLength = 60;
+    this.turnLength = 10;
     this.turnCounter = 0;
     
     // Create Shapes
@@ -74,11 +68,15 @@ Tetris.Game.prototype = {
         this.clearHorizontalLines();
         
         // Make the next shape active and create a new next shape
+        this.activeShape.placeShapeInBoard();
         this.activeShape.clearActive();
-        this.activeShape = this.nextShape();
-        this.activeShape.activate();
+        this.activeShape = null;
 
         this.nextShape.clearPreview();
+        this.activeShape = this.nextShape;
+        this.activeShape.activate();
+
+        this.nextShape = new Tetris.Shape();
         this.nextShape.randomizeShape();
         this.nextShape.preview();
       }

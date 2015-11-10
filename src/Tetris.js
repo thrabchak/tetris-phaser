@@ -1,11 +1,11 @@
 /** @constructor */
 var Tetris =
 {
-  title: "Tetris",
-  author: "Tom Hrabchak",
+  TITLE: "Tetris",
+  AUTHOR: "Tom Hrabchak",
 
-  screenWidth: 510,
-  screenHeight: 950,
+  SCREEN_WIDTH: 510,
+  SCREEN_HEIGHT: 950,
 
   titleStyle: { font: "72px Arial", fill: "#ffffff" },
 
@@ -14,8 +14,14 @@ var Tetris =
   buttonStyle: { font: "32px Arial", fill: "#ffffff" },
   buttonActiveStyle: { font: "32px Arial", fill: "#ffffff", fontStyle: "italic" },
   
+  // Asset Sizes
+  BANNER_HEIGHT: 145,
+  LINING_WIDTH: 5,
+  BLOCK_WIDTH: 50,
+  
+  // Board Size
   BOARD_WIDTH: 10,
-  BOARD_HEIGHT: 40,
+  BOARD_HEIGHT: 16,
   
   // Movement Directions
   DOWN: 0,
@@ -35,13 +41,19 @@ var Tetris =
   blockPositionsJSON: null,
   blockPositions: null,  
   
+  // Declare the board.
+  // board is a 2d array containing Blocks. It will be oriented with
+  // blocks[0][0] in the top left and blocks[BOARD_HEIGHT-1][BOARD_WIDTH-1]
+  // in the bottom right corner. Initialized in Tetris.Game.create().
+  board: null,
+  
   unusedBlocks: []
 };
 
 Tetris.run = function()
 {
   // Create the Phaser game
-  this.game = new Phaser.Game( this.screenWidth, this.screenHeight,
+  this.game = new Phaser.Game( this.SCREEN_WIDTH, this.SCREEN_HEIGHT,
                                Phaser.AUTO, "", this );
 
   // Add all the states to the game
