@@ -31,14 +31,14 @@ Tetris.Game.prototype = {
       }
     }
     
-    // Create groups of unused block sprites
+    //TODO: Create groups of unused block sprites
     for(i = 0; i < Tetris.NUM_COLORS; i++) {
-      Tetris.unusedBlocks[i] = this.add.group();
+      Tetris.unusedBlocks[i] = null;
     }
         
     // Retrieve blockPositions
-    Tetris.blockPositionsJSON = this.game.cache.getJSON('blockPositions');
-    Tetris.blockPositions = Tetris.blockPositionsJSON.blockPositions;
+    Tetris.shapesJSON = this.game.cache.getJSON('shapes');
+    Tetris.shapes = Tetris.shapesJSON.shapes;
     
     // Set turn length and counter
     this.turnLength = 10;

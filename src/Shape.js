@@ -6,7 +6,7 @@ Tetris.Shape = function () {
   this.centerX = null;
   this.centerY = null;
   
-  // Create Blocks
+  this.shape = null;
   this.blocks = [];
 };
 
@@ -31,6 +31,7 @@ Tetris.Shape.prototype = {
     this.orientation = 0;
     this.color = Math.floor(Math.random() * 4);
     
+    this.shape = Tetris.shapes[this.type];
     this.initBlocks();
   },
   
@@ -54,14 +55,14 @@ Tetris.Shape.prototype = {
   
   activate: function () {
     
-    this.centerX = Tetris.blockPositionsJSON.startingPosition.x;
-    this.centerY = Tetris.blockPositionsJSON.startingPosition.y;
+    this.centerX = this.shape.orientation[this.orientation].startingLocation.x;
+    this.centerY = this.shape.orientation[this.orientation].startingLocation.y;
     
     var i, newX, newY;
 
     for(i = 0; i < this.blocks.length; i++) {
-      newX = this.centerX + Tetris.blockPositions[this.type][this.orientation][i].x;
-      newY = this.centerY + Tetris.blockPositions[this.type][this.orientation][i].y;
+      newX = this.centerX + this.shape.orientation[this.orientation].blockPosition[i].x;
+      newY = this.centerY + this.shape.orientation[this.orientation].blockPosition[i].y;
       this.blocks[i].makeBlock(newX, newY, this.color);
     }
   },
@@ -164,8 +165,8 @@ Tetris.Shape.prototype = {
     
     for(i = 0; i < this.blocks.length; i++) {
       newOrientation = (this.orientation + 1) % 4;
-      newX = this.centerX + Tetris.blockPositions[this.type][newOrientation][i].x;
-      newY = this.centerY + Tetris.blockPositions[this.type][newOrientation][i].y;      
+      newX = this.centerX + this.shape.orientation[newOrientation].blockPosition[i].x;
+      newY = this.centerY + this.shape.orientation[newOrientation].blockPosition[i].y;      
       
       if (!this.isOnBoard(newX, newY) || this.isOccupied(newX, newY)) {
         return false;
@@ -184,8 +185,8 @@ Tetris.Shape.prototype = {
     
     for(i = 0; i < this.blocks.length; i++) {
       newOrientation = (this.orientation + 1) % 4;
-      newX = this.centerX + Tetris.blockPositions[this.type][newOrientation][i].x;
-      newY = this.centerY + Tetris.blockPositions[this.type][newOrientation][i].y;      
+      newX = this.centerX + this.shape.orientation[newOrientation].blockPosition[i].x;
+      newY = this.centerY + this.shape.orientation[newOrientation].blockPosition[i].y;      
       this.blocks[i].moveBlock(newX, newY);
     }
   }

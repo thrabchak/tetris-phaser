@@ -38,8 +38,8 @@ var Tetris =
   // Static Data for the position of Blocks within a Shape.
   // blockPositions[shapeType][orientation][blockNumber].x = (int) board positions away from Shape.centerX
   // in the x direction.
-  blockPositionsJSON: null,
-  blockPositions: null,  
+  shapesJSON: null,
+  shapes: null,  
   
   // Declare the board.
   // board is a 2d array containing Blocks. It will be oriented with

@@ -38,7 +38,7 @@ Tetris.Preloader.prototype = {
     this.load.spritesheet('block', 'blocks.png', Tetris.BLOCK_WIDTH, Tetris.BLOCK_WIDTH);
     
     // Load blockPositions.json and put into Tetris.blockPositions
-    this.load.json('blockPositions', 'blockPositions.json');
+    this.load.json('shapes', 'shapes.json');
   },
   
   create: function () {
