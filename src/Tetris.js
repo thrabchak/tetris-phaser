@@ -42,12 +42,11 @@ var Tetris =
   shapes: null,  
   
   // Declare the board.
-  // board is a 2d array containing Blocks. It will be oriented with
+  // board is a 2d array containing placed Blocks (active blocks are not in 
+  // the board yet. It will be oriented with
   // blocks[0][0] in the top left and blocks[BOARD_HEIGHT-1][BOARD_WIDTH-1]
-  // in the bottom right corner. Initialized in Tetris.Game.create().
-  board: null,
-  
-  unusedBlocks: []
+  // in the bottom right corner. Initialized in Tetris.Game.create(). 
+  board: null
 };
 
 Tetris.run = function()

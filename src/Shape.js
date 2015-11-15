@@ -10,6 +10,9 @@ Tetris.Shape = function () {
   this.blocks = [];
   
   this.isTweening = false;
+  this.tweenCounter = 0;
+  
+  this.tempCounter = 0;
 };
 
 Tetris.Shape.prototype = {
@@ -33,7 +36,7 @@ Tetris.Shape.prototype = {
     this.orientation = Math.floor(Math.random() * this.NUM_ORIENTATIONS);
     this.color = Math.floor(Math.random() * Tetris.NUM_COLORS);
     
-    this.shape = Tetris.shapes[this.type];
+    //this.shape = Tetris.shapes[this.type];
     this.initBlocks();
   },
   
@@ -56,7 +59,7 @@ Tetris.Shape.prototype = {
   },
   
   activate: function () {
-    
+    this.shape = Tetris.shapes[this.type];
     this.centerX = this.shape.orientation[this.orientation].startingLocation.x;
     this.centerY = this.shape.orientation[this.orientation].startingLocation.y;
     
@@ -142,6 +145,7 @@ Tetris.Shape.prototype = {
     
     var i, newX, newY;
     
+    // Move the Shape's blocks
     for(i = 0; i < this.blocks.length; i++) {
       switch(direction) {
         case Tetris.DOWN:
@@ -156,17 +160,37 @@ Tetris.Shape.prototype = {
           newX = this.blocks[i].x + 1;
           newY = this.blocks[i].y;
           break;
-      }      
-     this.blocks[i].moveBlock(newX, newY); 
+      }  
+     this.blocks[i].moveBlock(newX, newY);
+    }
+    
+    // Update the Shape's center
+    switch(direction) {
+      case Tetris.DOWN:
+        this.centerX += 0;
+        this.centerY += 1;
+        break;
+      case Tetris.LEFT:
+        this.centerX += -1;
+        this.centerY += 0;
+        break;
+      case Tetris.RIGHT:
+        this.centerX += 1;
+        this.centerY += 0;
+        break;
     }
   },
-    
+  
   canRotate: function () {
     
+    if (this.isTweening) {
+      return false;
+    }
+    
     var i, newX, newY, newOrientation;
+    newOrientation = (this.orientation + 1) % this.NUM_ORIENTATIONS;
     
     for(i = 0; i < this.blocks.length; i++) {
-      newOrientation = (this.orientation + 1) % 4;
       newX = this.centerX + this.shape.orientation[newOrientation].blockPosition[i].x;
       newY = this.centerY + this.shape.orientation[newOrientation].blockPosition[i].y;      
       
@@ -184,12 +208,22 @@ Tetris.Shape.prototype = {
     }
     
     var i, newX, newY, newOrientation;
-    
+    newOrientation = (this.orientation + 1) % this.NUM_ORIENTATIONS;
     for(i = 0; i < this.blocks.length; i++) {
-      newOrientation = (this.orientation + 1) % 4;
       newX = this.centerX + this.shape.orientation[newOrientation].blockPosition[i].x;
       newY = this.centerY + this.shape.orientation[newOrientation].blockPosition[i].y;      
       this.blocks[i].moveBlock(newX, newY);
     }
+    this.orientation = newOrientation;
+    this.isTweening = true;
+  },
+  
+  updateTween: function () {
+    
+    if (this.tweenCounter > 10) {
+      this.isTweening = false;
+      this.tweenCounter = 0;
+    } 
+    this.tweenCounter++;
   }
 };

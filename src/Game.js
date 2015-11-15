@@ -38,7 +38,7 @@ Tetris.Game.prototype = {
     Tetris.shapes = Tetris.shapesJSON.shapes;
     
     // Set turn length and counter
-    this.turnLength = 10;
+    this.turnLength = 60;
     this.turnCounter = 0;
     
     // Setup cursor keys
@@ -87,19 +87,23 @@ Tetris.Game.prototype = {
     }
     
     // Handle key input
-    if (this.cursors.up.isDown && !this.activeShape.isTweening) {      
+    if (this.activeShape.isTweening) {
+      this.activeShape.updateTween();
+    } else if (this.cursors.up.isDown) {      
       if (this.activeShape.canRotate()) {        
         this.activeShape.rotate();
       }
-    } else if (this.cursors.left.isDown && !this.activeShape.isTweening) {
+    } else if (this.cursors.left.isDown) {
       if (this.activeShape.canMoveShape(Tetris.LEFT)) {
         this.activeShape.moveShape(Tetris.LEFT);
+        this.activeShape.isTweening = true
       }
-    } else if (this.cursors.right.isDown && !this.activeShape.isTweening) {
+    } else if (this.cursors.right.isDown) {
       if (this.activeShape.canMoveShape(Tetris.RIGHT)) {        
         this.activeShape.moveShape(Tetris.RIGHT);
+        this.activeShape.isTweening = true;
       }
-    } else if (this.cursors.down.isDown && !this.activeShape.isTweening) {
+    } else if (this.cursors.down.isDown) {
       this.turnCounter += this.turnLength/5;
     }
     
