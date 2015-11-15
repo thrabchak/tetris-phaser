@@ -8,6 +8,8 @@ Tetris.Shape = function () {
   
   this.shape = null;
   this.blocks = [];
+  
+  this.isTweening = false;
 };
 
 Tetris.Shape.prototype = {
@@ -27,7 +29,6 @@ Tetris.Shape.prototype = {
   
   randomizeShape: function () {
     
-    //TODO: Randomly generate type, orientation, and color
     this.type = Math.floor(Math.random() * this.NUM_SHAPE_TYPES);
     this.orientation = Math.floor(Math.random() * this.NUM_ORIENTATIONS);
     this.color = Math.floor(Math.random() * Tetris.NUM_COLORS);

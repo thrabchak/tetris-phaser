@@ -6,6 +6,8 @@ Tetris.Game = function (game) {
   
   this.nextShape = null;
   this.activeShape = null;
+  
+  this.cursors = null;
 };
 
 Tetris.Game.stateKey = "Game";
@@ -30,12 +32,7 @@ Tetris.Game.prototype = {
         Tetris.board[i][j] = null;
       }
     }
-    
-    //TODO: Create groups of unused block sprites
-    for(i = 0; i < Tetris.NUM_COLORS; i++) {
-      Tetris.unusedBlocks[i] = null;
-    }
-        
+            
     // Retrieve blockPositions
     Tetris.shapesJSON = this.game.cache.getJSON('shapes');
     Tetris.shapes = Tetris.shapesJSON.shapes;
@@ -43,6 +40,9 @@ Tetris.Game.prototype = {
     // Set turn length and counter
     this.turnLength = 10;
     this.turnCounter = 0;
+    
+    // Setup cursor keys
+    this.cursors = this.game.input.keyboard.createCursorKeys();
     
     // Create Shapes
     this.nextShape = new Tetris.Shape();
@@ -59,11 +59,12 @@ Tetris.Game.prototype = {
     if(this.turnCounter >= this.turnLength){
       
       // If the active shape can move down, move it down
-      if(this.activeShape.canMoveShape(Tetris.DOWN)) {
+      if(this.activeShape.canMoveShape(Tetris.DOWN)) {        
         this.activeShape.moveShape(Tetris.DOWN);
         
       // Otherwise the shape stops
-      } else {      
+      } else {
+        
         // Handle horizontal line clearing
         this.clearHorizontalLines();
         
@@ -85,8 +86,22 @@ Tetris.Game.prototype = {
       this.turnCounter = 0;
     }
     
-    //Handle user input for shape manipulation
-    //TODO
+    // Handle key input
+    if (this.cursors.up.isDown && !this.activeShape.isTweening) {      
+      if (this.activeShape.canRotate()) {        
+        this.activeShape.rotate();
+      }
+    } else if (this.cursors.left.isDown && !this.activeShape.isTweening) {
+      if (this.activeShape.canMoveShape(Tetris.LEFT)) {
+        this.activeShape.moveShape(Tetris.LEFT);
+      }
+    } else if (this.cursors.right.isDown && !this.activeShape.isTweening) {
+      if (this.activeShape.canMoveShape(Tetris.RIGHT)) {        
+        this.activeShape.moveShape(Tetris.RIGHT);
+      }
+    } else if (this.cursors.down.isDown && !this.activeShape.isTweening) {
+      this.turnCounter += this.turnLength/5;
+    }
     
     this.turnCounter++;
   },
