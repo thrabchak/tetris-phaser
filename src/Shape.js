@@ -14,6 +14,7 @@ Tetris.Shape.prototype = {
 
   NUM_BLOCKS_IN_SHAPE: 4,
   NUM_SHAPE_TYPES: 7,
+  NUM_ORIENTATIONS: 4,
 
   // Shape type
   I: 0,
@@ -27,9 +28,9 @@ Tetris.Shape.prototype = {
   randomizeShape: function () {
     
     //TODO: Randomly generate type, orientation, and color
-    this.type = this.O;
-    this.orientation = 0;
-    this.color = Math.floor(Math.random() * 4);
+    this.type = Math.floor(Math.random() * this.NUM_SHAPE_TYPES);
+    this.orientation = Math.floor(Math.random() * this.NUM_ORIENTATIONS);
+    this.color = Math.floor(Math.random() * Tetris.NUM_COLORS);
     
     this.shape = Tetris.shapes[this.type];
     this.initBlocks();
