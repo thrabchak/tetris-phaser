@@ -41,7 +41,7 @@ Tetris.Block.prototype = {
     return {"x": spriteX, "y": spriteY};
   },
   
-  moveBlock: function (newX, newY) {
+  moveBlock: function(newX, newY) {
     
     this.x = newX;
     this.y = newY;
@@ -51,5 +51,4 @@ Tetris.Block.prototype = {
     this.sprite.x = spriteLocation.x;
     this.sprite.y = spriteLocation.y;
   }
-  
 };
