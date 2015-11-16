@@ -36,7 +36,6 @@ Tetris.Shape.prototype = {
     this.orientation = Math.floor(Math.random() * this.NUM_ORIENTATIONS);
     this.color = Math.floor(Math.random() * Tetris.NUM_COLORS);
     
-    //this.shape = Tetris.shapes[this.type];
     this.initBlocks();
   },
   
@@ -90,7 +89,7 @@ Tetris.Shape.prototype = {
     
     for(i = 0; i < this.blocks.length; i++) {
       block = this.blocks[i];
-      Tetris.board[block.y][block.x] = this.block;
+      Tetris.board[block.y][block.x] = this.blocks[i];
     }
   },
   
