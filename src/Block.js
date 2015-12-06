@@ -5,6 +5,7 @@ Tetris.Block = function () {
   this.y = null;
   
   this.sprite = null;
+  this.tween = null;
   
   return this;
 };
@@ -20,6 +21,7 @@ Tetris.Block.prototype = {
     var spriteLocation = this.getSpriteLocation();
     
     this.sprite = Tetris.game.add.sprite(spriteLocation.x, spriteLocation.y, 'block', this.color);
+    //this.tween.frameBased = true;
   },
   
   clean: function() {
@@ -48,7 +50,15 @@ Tetris.Block.prototype = {
     
     var spriteLocation = this.getSpriteLocation(newX, newY);
     
-    this.sprite.x = spriteLocation.x;
-    this.sprite.y = spriteLocation.y;
+    var duration = 55;
+    var repeat = 0;
+    var ease = Phaser.Easing.Quadratic.In;
+    var autoStart = false;
+    var delay = 0;
+    var yoyo = false;
+
+    
+    this.tween = Tetris.game.add.tween(this.sprite).to(spriteLocation, duration, ease, autoStart, delay, repeat, yoyo);
+    this.tween.start();
   }
 };

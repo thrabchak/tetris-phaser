@@ -4,7 +4,7 @@ A phaser based version of tetris.
 ### Requirements
 - [git](https://help.github.com/articles/set-up-git/)
 - [node](https://nodejs.org/en/download/)
-- [python 2.7](https://www.python.org/downloads/) - optional if you already know how to run the game on a local server
+- [python 2.7](https://www.python.org/downloads/) - optional if you have a local web server
 
 Currently the game is not hosted on a website, you will need to get the source code in order to run the game. The easiest way to do so is cloning the project from GitHub using [git](https://help.github.com/articles/set-up-git/).
 
