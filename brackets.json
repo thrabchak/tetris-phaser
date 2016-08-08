@@ -1,0 +1,12 @@
+{
+  "fonts.fontSize": "12px",
+  "fonts.fontFamily": "'SourceCodePro-Medium', 'MS Gothic', monospace",
+
+  "useTabChar": false,
+  "spaceUnits": 2,
+  "tabSize": 2,
+
+  "linting.collapsed": false,
+  "linting.prefer": ["JSHint"],
+  "linting.usePreferredOnly": true
+}

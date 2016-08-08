@@ -1,0 +1,20 @@
+{
+  "name": "Tetris",
+  "version": "0.0.0",
+  "description": "Phaser based version of classic Tetris.",
+  "url": "https://github.com/thrabchak/tetris-phaser.git",
+  "author": "Tom Hrabchak",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thrabchak/tetris-phaser.git"
+  },
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.3"
+  },
+  "jshintConfig": ".jshintrc",
+  "devDependencies": {
+    "phaser": "^2.4.4"
+  }
+}
