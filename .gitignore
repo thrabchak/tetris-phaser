@@ -18,8 +18,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Library Folders
-node_modules/
-bower_components/
 
 # =========================
 # Operating System Files
